@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Profile Sync</string>
+
+    <string name="title_section1">Sitzposition</string>
+    <string name="title_section2">Lenkradposition</string>
+    <string name="title_section3">Musik</string>
+    <string name="title_section4">GPS Favoriten</string>
+    <string name="title_section5">Heads Up</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Sync</string>
+    <string name="seatImageDescription">seatImage</string>
+    <string name="seatPosBack">Sitzfläche kippen</string>
+    <string name="seatHeadRest">Kopflehne kippen</string>
+    <string name="seatPosHeight">Sitzhöhe ändern</string>
+    <string name="seatPosX">Sitz vorschieben</string>
+
+    <string name="service_name">CardEmulation Sample</string>
+    <string name="card_title">Sample Loyalty Card</string>
+    <string name="account_number">Account Number</string>
+    <string name="steeringPosBack">Lenkrad zurück</string>
+    <string name="steeringPosHeight">Lenkradhöhe</string>
+</resources>

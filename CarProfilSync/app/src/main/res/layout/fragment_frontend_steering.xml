@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customborder"
+        android:padding="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView5"
+            android:src="@drawable/lenkrad"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="50dp"
+            android:paddingTop="30dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:src="@drawable/lenkamatur"
+            android:layout_alignParentEnd="false"
+            android:layout_marginTop="-40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_alignParentLeft="false"
+            android:paddingLeft="70dp"
+            android:paddingTop="50dp" />
+
+    </RelativeLayout>
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="2"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/customborder"
+        android:layout_marginBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1,2"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/steeringPosBack"
+                android:id="@+id/textView8"
+                android:layout_column="0"
+                android:textColor="#ff3c3c3c"
+                android:textSize="18dp" />
+
+            <SeekBar
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar6"
+                android:layout_column="1"
+                android:layout_marginLeft="5dp"
+                android:minWidth="100dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1,2"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/steeringPosHeight"
+                android:id="@+id/textView9"
+                android:layout_column="0"
+                android:textColor="#ff3c3c3c"
+                android:textSize="18dp" />
+
+            <SeekBar
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar7"
+                android:layout_column="1"
+                android:layout_marginLeft="5dp"
+                android:minWidth="100dp" />
+        </TableRow>
+
+    </TableLayout>
+</LinearLayout>

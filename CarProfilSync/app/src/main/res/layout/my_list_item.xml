@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/customborder_dark">
+
+    <ImageView
+        android:id="@+id/isdcon"
+        android:layout_width="60px"
+        android:layout_height="60px"
+        android:src="@drawable/musiknote"
+        android:layout_gravity="center_vertical">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/mylabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@+id/label"
+        android:textSize="18dp"
+        android:layout_marginLeft="15dp"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="true">
+    </TextView>
+
+</LinearLayout> 

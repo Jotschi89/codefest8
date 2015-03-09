@@ -1,0 +1,1 @@
+This folder is made for all resources not directly used by the project code.
