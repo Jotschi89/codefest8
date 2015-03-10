@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.fabian.profilesync.model.DataSaver;
+import com.example.fabian.profilesync.util.Serializer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -65,7 +66,7 @@ public class CardService extends HostApduService {
         if (Arrays.equals(SELECT_APDU, commandApdu)) {
             //String account = AccountStorage.GetAccount(this);
             //String account = DataSaver.getDataDto();
-            byte[] accountBytes = serialize(DataSaver.getDataDto());
+            byte[] accountBytes = Serializer.serialize(DataSaver.getDataDto());
             Log.i(TAG, "Sending/: " + accountBytes);
             return ConcatArrays(accountBytes, SELECT_OK_SW);
         } else {
@@ -146,45 +147,5 @@ public class CardService extends HostApduService {
             offset += array.length;
         }
         return result;
-    }
-
-    public static byte[] serialize(Serializable obj) {
-        /*
-        String serializedObject = null;
-        try {
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            ObjectOutputStream so = new ObjectOutputStream(bo);
-            so.writeObject(obj);
-            so.flush();
-            serializedObject = bo.toString();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return serializedObject;
-        */
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutput out = null;
-        try {
-            out = new ObjectOutputStream(bos);
-            out.writeObject(obj);
-            byte[] yourBytes = bos.toByteArray();
-            return yourBytes;
-        } catch (IOException ex) {
-
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException ex) {
-                // ignore close exception
-            }
-            try {
-                bos.close();
-            } catch (IOException ex) {
-                // ignore close exception
-            }
-        }
-        return null;
     }
 }

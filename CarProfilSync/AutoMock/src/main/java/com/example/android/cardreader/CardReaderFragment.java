@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.example.android.common.logger.Log;
 import com.example.fabian.profilesync.model.DataDTO;
+import com.example.fabian.profilesync.util.Serializer;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -50,6 +51,7 @@ public class CardReaderFragment extends Fragment implements LoyaltyCardReader.Ac
             NfcAdapter.FLAG_READER_NFC_A | NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK;
     public LoyaltyCardReader mLoyaltyCardReader;
     private TextView outputText;
+    private ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
 
     /** Called when sample is created. Displays generic UI with welcome text. */
     @Override
@@ -112,32 +114,10 @@ public class CardReaderFragment extends Fragment implements LoyaltyCardReader.Ac
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                // deserialize the object7
-                System.out.println("length: " + serializedObject.length + "\n"
-                + Arrays.toString(serializedObject));
-                ByteArrayInputStream bis = new ByteArrayInputStream(serializedObject);
-                ObjectInput in = null;
-                try {
-                    in = new ObjectInputStream(bis);
-                    DataDTO o = (DataDTO)in.readObject();
-                    outputText.setText(o.toString());
-                    ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 100);
+                DataDTO dataDTO = Serializer.deSerialize(serializedObject);
+                if(dataDTO != null) {
+                    outputText.setText(dataDTO.toString());
                     toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-                } catch (ClassNotFoundException | IOException ex) {
-                    System.out.println(ex);
-                }finally {
-                    try {
-                        bis.close();
-                    } catch (IOException ex) {
-                        System.out.println(ex);
-                    }
-                    try {
-                        if (in != null) {
-                            in.close();
-                        }
-                    } catch (IOException ex) {
-                        System.out.println(ex);
-                    }
                 }
             }
         });
