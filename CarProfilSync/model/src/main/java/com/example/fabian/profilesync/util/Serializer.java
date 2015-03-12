@@ -1,11 +1,8 @@
 package com.example.fabian.profilesync.util;
 
-import android.media.AudioManager;
-import android.media.ToneGenerator;
 import android.util.Log;
 
-import com.example.fabian.profilesync.model.DataDTO;
-
+import com.example.fabian.profilesync.model.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,6 +10,7 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 
 /**
  * Created by Jotschi on 10.03.2015.
@@ -20,13 +18,13 @@ import java.io.ObjectOutputStream;
 public class Serializer {
     private static final String TAG = "SERIALIZER";
 
-    public static DataDTO deSerialize(byte [] data) {
+    public static Object deSerialize(byte [] data) {
+        Object o = null;
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
         ObjectInput in = null;
         try {
             in = new ObjectInputStream(bis);
-            DataDTO o = (DataDTO)in.readObject();
-            return o;
+            o = in.readObject();
         } catch (ClassNotFoundException | IOException ex) {
             Log.e(TAG, ex.getMessage(), ex);
         }finally {
@@ -43,17 +41,18 @@ public class Serializer {
                 Log.e(TAG, ex.getMessage(), ex);
             }
         }
-        return null;
+        return o;
     }
 
-    public static byte[] serialize(DataDTO dataDto) {
+    public static byte[] serialize(Object dataDto) {
+        byte[] bytes = new byte[0];
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutput out = null;
         try {
             out = new ObjectOutputStream(bos);
             out.writeObject(dataDto);
-            byte[] yourBytes = bos.toByteArray();
-            return yourBytes;
+            out.flush();
+            bytes = bos.toByteArray();
         } catch (IOException ex) {
             Log.e(TAG, ex.getMessage(), ex);
         } finally {
@@ -70,6 +69,6 @@ public class Serializer {
                 Log.e(TAG, ex.getMessage(), ex);
             }
         }
-        return null;
+        return bytes;
     }
 }

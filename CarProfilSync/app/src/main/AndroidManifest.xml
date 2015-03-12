@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".frontendMainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -35,6 +35,10 @@
             <meta-data android:name="android.nfc.cardemulation.host_apdu_service"
                 android:resource="@xml/aid_list"/>
         </service>
+
+        <meta-data android:name="roboguice.modules"
+            android:value="com.example.fabian.profilesync.service.ServiceModule,
+                               com.example.fabian.profilesync.persistent.PersistentModule" />
     </application>
 
 

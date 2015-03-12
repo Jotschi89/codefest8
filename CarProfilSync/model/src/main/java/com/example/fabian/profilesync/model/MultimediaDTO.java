@@ -6,14 +6,14 @@ import java.io.Serializable;
  * Created by schoe_000 on 07.03.2015.
  */
 public class MultimediaDTO implements Serializable {
-    static final long serialVersionUID = 3;
-    
-    private String station1;
-    private String station2;
-    private String station3;
-    private String station4;
-    private String station5;
-    private String station6;
+    static final long serialVersionUID = 4;
+
+    private String station1 = "";
+    private String station2 = "";
+    private String station3 = "";
+    private String station4 = "";
+    private String station5 = "";
+    private String station6 = "";
 
     private int volume;
 

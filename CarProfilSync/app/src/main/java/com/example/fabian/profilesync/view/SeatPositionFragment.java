@@ -1,19 +1,24 @@
-package com.example.fabian.profilesync;
+package com.example.fabian.profilesync.view;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
-import com.example.fabian.profilesync.model.DataSaver;
+import com.example.fabian.profilesync.R;
+import com.example.fabian.profilesync.model.DataDTO;
+import com.example.fabian.profilesync.model.SeatPositionDTO;
+import com.example.fabian.profilesync.service.SeatPositionService;
+import com.google.inject.Inject;
 
-public class SeatPositionFragment extends Fragment {
+import roboguice.fragment.provided.RoboFragment;
 
+
+public class SeatPositionFragment extends RoboFragment {
+    @Inject
+    SeatPositionService seatPositionService;
 
     int value1;
     int value2;
@@ -21,8 +26,19 @@ public class SeatPositionFragment extends Fragment {
     int value4;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final SeatPositionDTO seatPositionDTO = seatPositionService.readSeatPosition();
 
         final View rootView = inflater.inflate(R.layout.fragment_frontend_seat_position, container, false);
         final ImageView imageView = (ImageView) rootView.findViewById(R.id.myImage);
@@ -38,7 +54,7 @@ public class SeatPositionFragment extends Fragment {
         final float originY3 = imageViewn.getY()-100;
 
         final SeekBar sk = (SeekBar) rootView.findViewById(R.id.seekBar);
-        sk.setProgress(DataSaver.getDataDto().getSeatDto().getDistanceAngle());
+        sk.setProgress(seatPositionDTO.getDistanceAngle());
         sk.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
@@ -70,13 +86,14 @@ public class SeatPositionFragment extends Fragment {
                 //imageView.startAnimation(rotate);
                 value1 = progress;
 
-                DataSaver.getDataDto().getSeatDto().setDistanceAngle(value1);
+                seatPositionDTO.setDistanceAngle(value1);
+                seatPositionService.saveSeatPosition(seatPositionDTO);
             }
 
         });
 
         final SeekBar sk2 = (SeekBar) rootView.findViewById(R.id.seekBar2);
-        sk2.setProgress(DataSaver.getDataDto().getSeatDto().getDistanceHeadWrest());
+        sk2.setProgress(seatPositionDTO.getDistanceHeadWrest());
         sk2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
@@ -92,14 +109,16 @@ public class SeatPositionFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 value2 = progress;
-                DataSaver.getDataDto().getSeatDto().setDistanceHeadWrest(value2);
                 imageView.setRotation(new Float(-progress/3+10));
+
+                seatPositionDTO.setDistanceHeadWrest(value2);
+                seatPositionService.saveSeatPosition(seatPositionDTO);
             }
 
         });
 
         final SeekBar sk3 = (SeekBar) rootView.findViewById(R.id.seekBar3);
-        sk3.setProgress(DataSaver.getDataDto().getSeatDto().getDistanceSeatZ());
+        sk3.setProgress(seatPositionDTO.getDistanceSeatZ());
         sk3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
@@ -115,15 +134,17 @@ public class SeatPositionFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 value3 = progress;
-                DataSaver.getDataDto().getSeatDto().setDistanceSeatZ(value3);
                 imageView.setY(originY+progress*3);
                 imageViewan.setY(originY2+progress*3);
                 imageViewn.setY(originY3+progress*3);
+
+                seatPositionDTO.setDistanceSeatZ(value3);
+                seatPositionService.saveSeatPosition(seatPositionDTO);
             }
 
         });
         final SeekBar sk4 = (SeekBar) rootView.findViewById(R.id.seekBar4);
-        sk4.setProgress(DataSaver.getDataDto().getSeatDto().getDistanceSeatX());
+        sk4.setProgress(seatPositionDTO.getDistanceSeatX());
         sk4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
@@ -139,16 +160,19 @@ public class SeatPositionFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 value4 = progress;
-                DataSaver.getDataDto().getSeatDto().setDistanceSeatX(value4);
                 imageView.setX(originX+progress*3);
                 imageViewan.setX(originX2+progress*3);
                 imageViewn.setX(originX3+progress*3);
+
+                seatPositionDTO.setDistanceSeatX(value4);
+                seatPositionService.saveSeatPosition(seatPositionDTO);
             }
 
         });
 
         return rootView;
     }
+
 
 
 }

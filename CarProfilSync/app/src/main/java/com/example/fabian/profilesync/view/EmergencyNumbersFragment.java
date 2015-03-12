@@ -1,9 +1,8 @@
-package com.example.fabian.profilesync;
+package com.example.fabian.profilesync.view;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,43 +13,35 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.fabian.profilesync.model.DataSaver;
+import com.example.fabian.profilesync.R;
+import com.example.fabian.profilesync.model.EmergencyNumbersDTO;
+import com.example.fabian.profilesync.service.EmergencyNumbersService;
+import com.google.inject.Inject;
 
 import java.util.ArrayList;
 
-public class EmergencyNumbersFragment extends Fragment {
+import roboguice.fragment.provided.RoboFragment;
 
+
+public class EmergencyNumbersFragment extends RoboFragment {
+    @Inject
+    EmergencyNumbersService emergencyNumbersService;
+    
     ArrayList<String> arrayStrings = new ArrayList<String>();
     View rootView = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        EmergencyNumbersDTO emergencyNumbersDTO = emergencyNumbersService.readEmergencyNumbers();
         rootView = inflater.inflate(R.layout.fragment_frontend_emergencynumbers, container, false);
 
-        if(DataSaver.getDataDto().getEnDto().getStation1()==null) {
-            DataSaver.getDataDto().getEnDto().setStation1("0664/1234567");
-            DataSaver.getDataDto().getEnDto().setStation2("empty");
-            DataSaver.getDataDto().getEnDto().setStation3("empty");
-            DataSaver.getDataDto().getEnDto().setStation4("empty");
-            DataSaver.getDataDto().getEnDto().setStation5("empty");
-            DataSaver.getDataDto().getEnDto().setStation6("empty");
-            arrayStrings.add("0664/1234567");
-            arrayStrings.add("empty");
-            arrayStrings.add("empty");
-            arrayStrings.add("empty");
-            arrayStrings.add("empty");
-            arrayStrings.add("empty");
-        }else
-        {
-            arrayStrings.add(DataSaver.getDataDto().getEnDto().getStation1());
-            arrayStrings.add(DataSaver.getDataDto().getEnDto().getStation2());
-            arrayStrings.add(DataSaver.getDataDto().getEnDto().getStation3());
-            arrayStrings.add(DataSaver.getDataDto().getEnDto().getStation4());
-            arrayStrings.add(DataSaver.getDataDto().getEnDto().getStation5());
-            arrayStrings.add(DataSaver.getDataDto().getEnDto().getStation6());
-        }
+        arrayStrings.add(emergencyNumbersDTO.getNumber1());
+        arrayStrings.add(emergencyNumbersDTO.getNumber2());
+        arrayStrings.add(emergencyNumbersDTO.getNumber3());
+        arrayStrings.add(emergencyNumbersDTO.getNumber4());
+        arrayStrings.add(emergencyNumbersDTO.getNumber5());
+        arrayStrings.add(emergencyNumbersDTO.getNumber6());
 
         final ListView listview = (ListView) rootView.findViewById(R.id.emergencylistView);
 
@@ -65,13 +56,7 @@ public class EmergencyNumbersFragment extends Fragment {
         /*String[] values = new String[] { "OE3", "FM4", "Welle1",
                 "OE1", "Radio Wien", "Radio something"};*/
         final ListView listview = list;
-
-        DataSaver.getDataDto().getEnDto().setStation1("0664/1234567");
-        DataSaver.getDataDto().getEnDto().setStation2("empty");
-        DataSaver.getDataDto().getEnDto().setStation3("empty");
-        DataSaver.getDataDto().getEnDto().setStation4("empty");
-        DataSaver.getDataDto().getEnDto().setStation5("empty");
-        DataSaver.getDataDto().getEnDto().setStation6("empty");
+        final EmergencyNumbersDTO emergencyNumbersDTO = emergencyNumbersService.readEmergencyNumbers();
 
         final ArrayAdapter adapter = new ArrayAdapter<String>(listview.getContext(),
                 R.layout.simple_list_item, R.id.label, arrayStrings);
@@ -83,7 +68,7 @@ public class EmergencyNumbersFragment extends Fragment {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
                 alertDialog.setTitle("Notfallnummer hinzufügen");
                 alertDialog.setMessage("Bitte Notfallnummer eingeben: ");
-                String radioStation;
+                String radioNumber;
                 final int myPos = position;
 
                 final EditText input = new EditText(view.getContext());
@@ -104,26 +89,24 @@ public class EmergencyNumbersFragment extends Fragment {
                                 loadList(listview);
                                 if(myPos==0)
                                 {
-                                    DataSaver.getDataDto().getEnDto().setStation1(radiooo);
+                                    emergencyNumbersDTO.setNumber1(radiooo);
                                 }else if(myPos ==1)
                                 {
-                                    DataSaver.getDataDto().getEnDto().setStation2(radiooo);
+                                    emergencyNumbersDTO.setNumber2(radiooo);
                                 }else if(myPos ==2)
                                 {
-                                    DataSaver.getDataDto().getEnDto().setStation3(radiooo);
+                                    emergencyNumbersDTO.setNumber3(radiooo);
                                 }else if(myPos ==3)
                                 {
-                                    DataSaver.getDataDto().getEnDto().setStation4(radiooo);
+                                    emergencyNumbersDTO.setNumber4(radiooo);
                                 }else if(myPos ==4)
                                 {
-                                    DataSaver.getDataDto().getEnDto().setStation5(radiooo);
+                                    emergencyNumbersDTO.setNumber5(radiooo);
                                 }else
                                 {
-                                    DataSaver.getDataDto().getEnDto().setStation6(radiooo);
+                                    emergencyNumbersDTO.setNumber6(radiooo);
                                 }
-
-
-
+                                emergencyNumbersService.saveEmergencyNumbers(emergencyNumbersDTO);
                             }
                         });
 
@@ -137,7 +120,5 @@ public class EmergencyNumbersFragment extends Fragment {
                 alertDialog.show();
             }
         });
-
     }
-
 }

@@ -6,48 +6,69 @@ import java.io.Serializable;
  * Created by schoe_000 on 07.03.2015.
  */
 public class DataDTO implements Serializable{
+    static final long serialVersionUID = 4;
 
-    static final long serialVersionUID = 3;
-
-    private MultimediaDTO mmDto;
-
-    private SeatPositionDTO seatDto;
-
-    private EmergencyNumbersDTO enDto;
+    private MultimediaDTO multimediaDTO;
+    private SeatPositionDTO seatPositionDTO;
+    private EmergencyNumbersDTO emergencyNumbersDTO;
+    private MirrorPositionDTO mirrorPositionDTO;
+    private GpsFavoritesDTO gpsFavoritesDTO;
 
     public DataDTO() {
-        mmDto = new MultimediaDTO();
-        seatDto = new SeatPositionDTO();
-        enDto = new EmergencyNumbersDTO();
-
+        multimediaDTO = new MultimediaDTO();
+        seatPositionDTO = new SeatPositionDTO();
+        emergencyNumbersDTO = new EmergencyNumbersDTO();
+        mirrorPositionDTO = new MirrorPositionDTO();
+        gpsFavoritesDTO = new GpsFavoritesDTO();
     }
 
-    public EmergencyNumbersDTO getEnDto() {
-        return enDto;
+    public EmergencyNumbersDTO getEmergencyNumbersDTO() {
+        return emergencyNumbersDTO;
     }
 
-    public void setEnDto(EmergencyNumbersDTO enDto) {
-        this.enDto = enDto;
+    public void setEmergencyNumbersDTO(EmergencyNumbersDTO enDto) {
+        this.emergencyNumbersDTO = enDto;
     }
 
-    public MultimediaDTO getMmDto() {
-        return mmDto;
+    public GpsFavoritesDTO getGpsFavoritesDTO() {
+        return gpsFavoritesDTO;
     }
 
-    public void setMmDto(MultimediaDTO mmDto) {
-        this.mmDto = mmDto;
+    public void setGpsFavoritesDTO(GpsFavoritesDTO gpsFavoritesDTO) {
+        this.gpsFavoritesDTO = gpsFavoritesDTO;
     }
 
-    public SeatPositionDTO getSeatDto() {
-        return seatDto;
+    public MultimediaDTO getMultimediaDTO() {
+        return multimediaDTO;
     }
 
-    public void setSeatDto(SeatPositionDTO seatDto) {
-        this.seatDto = seatDto;
+    public void setMultimediaDTO(MultimediaDTO mmDto) {
+        this.multimediaDTO = mmDto;
+    }
+
+    public SeatPositionDTO getSeatPositionDTO() {
+        return seatPositionDTO;
+    }
+
+    public void setSeatPositionDTO(SeatPositionDTO seatDto) {
+        this.seatPositionDTO = seatDto;
+    }
+
+    public MirrorPositionDTO getMirrorPositionDTO() {
+        return mirrorPositionDTO;
+    }
+
+    public void setMirrorPositionDTO(MirrorPositionDTO mirrorPositionDTO) {
+        this.mirrorPositionDTO = mirrorPositionDTO;
     }
 
     @Override
     public String toString() {
-        return "Data recieved:\n\n" + mmDto + seatDto + enDto;
+        return "Data recieved:\n\n" +
+                multimediaDTO +
+                seatPositionDTO +
+                emergencyNumbersDTO +
+                mirrorPositionDTO +
+                gpsFavoritesDTO;
     }
 }

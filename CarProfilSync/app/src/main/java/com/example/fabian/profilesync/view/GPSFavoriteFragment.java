@@ -1,4 +1,4 @@
-package com.example.fabian.profilesync;
+package com.example.fabian.profilesync.view;
 
 /**
  * Created by Fabian on 07.03.2015.
@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,20 +22,31 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.example.fabian.profilesync.model.DataSaver;
+import com.example.fabian.profilesync.GpsAdapter;
+import com.example.fabian.profilesync.GpsKoords;
+import com.example.fabian.profilesync.R;
+import com.example.fabian.profilesync.model.GpsFavoritesDTO;
+import com.example.fabian.profilesync.service.GpsFavoritesService;
+import com.google.inject.Inject;
 
 import java.util.ArrayList;
+
+import roboguice.fragment.provided.RoboFragment;
+
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class GPSFavoriteFragment extends Fragment {
+public class GPSFavoriteFragment extends RoboFragment {
+    @Inject
+    GpsFavoritesService gpsFavoritesService;
 
     ArrayList<GpsKoords> favoList = new ArrayList<GpsKoords>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final GpsFavoritesDTO gpsFavoritesDTO = gpsFavoritesService.readGpsFavorites();
 
         final View rootView = inflater.inflate(R.layout.fragment_frontend_gps, container, false);
 
@@ -56,10 +66,6 @@ public class GPSFavoriteFragment extends Fragment {
     }
 
     private void loadList(ListView list) {
-                /*resultAdapter = new ArrayAdapter<String>(this,
-                R.layout. simple_list_item_1, arrayStrings)
-        /*String[] values = new String[] { "OE3", "FM4", "Welle1",
-                "OE1", "Radio Wien", "Radio something"};*/
         final ListView listview = list;
 
         final GpsAdapter adapter = new GpsAdapter(listview.getContext(), favoList);
@@ -74,7 +80,6 @@ public class GPSFavoriteFragment extends Fragment {
                 favoList.add(position,changeElem);
 
                 loadList(listview);
-
             }
 
         });

@@ -1,22 +1,33 @@
 package com.example.fabian.profilesync;
 
 import android.app.ActivityManager;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.fabian.profilesync.view.AirCoolingFragment;
+import com.example.fabian.profilesync.view.CarSyncFragment;
+import com.example.fabian.profilesync.view.ChassisFragment;
+import com.example.fabian.profilesync.view.EmergencyNumbersFragment;
+import com.example.fabian.profilesync.view.GPSFavoriteFragment;
+import com.example.fabian.profilesync.view.HeadsUpFragment;
+import com.example.fabian.profilesync.view.MusicFragment;
+import com.example.fabian.profilesync.view.NavigationDrawerFragment;
+import com.example.fabian.profilesync.view.SeatPositionFragment;
+import com.example.fabian.profilesync.view.SteeringWheelFragment;
+import com.example.fabian.profilesync.view.TemperatureFragment;
 
-public class frontendMainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+import roboguice.activity.RoboActionBarActivity;
 
+
+public class MainActivity extends RoboActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -31,10 +42,10 @@ public class frontendMainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("MainActivity", "main constructor");
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_frontend_main);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mNavigationDrawerFragment = (NavigationDrawerFragment)getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
         // Set up the drawer.
@@ -62,7 +73,7 @@ public class frontendMainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getFragmentManager();
         Fragment frag;
         if(position==4)
             frag = new HeadsUpFragment();
@@ -91,8 +102,6 @@ public class frontendMainActivity extends ActionBarActivity
                 .replace(R.id.container, frag).addToBackStack(null)
                 .commit();
         onSectionAttached(position);
-
-
     }
 
     public void onSectionAttached(int number) {
@@ -153,6 +162,4 @@ public class frontendMainActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }

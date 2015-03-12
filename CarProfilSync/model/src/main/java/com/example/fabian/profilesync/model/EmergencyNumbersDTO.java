@@ -3,74 +3,73 @@ package com.example.fabian.profilesync.model;
 import java.io.Serializable;
 
 public class EmergencyNumbersDTO implements Serializable {
+    static final long serialVersionUID = 4;
 
-    static final long serialVersionUID = 3;
+    private String number1 = "";
+    private String number2 = "";
+    private String number3 = "";
+    private String number4 = "";
+    private String number5 = "";
+    private String number6 = "";
 
-    public String getStation1() {
-        return station1;
+    public String getNumber1() {
+        return number1;
     }
 
-    public void setStation1(String station1) {
-        this.station1 = station1;
+    public void setNumber1(String number1) {
+        this.number1 = number1;
     }
 
-    public String getStation2() {
-        return station2;
+    public String getNumber2() {
+        return number2;
     }
 
-    public void setStation2(String station2) {
-        this.station2 = station2;
+    public void setNumber2(String number2) {
+        this.number2 = number2;
     }
 
-    public String getStation3() {
-        return station3;
+    public String getNumber3() {
+        return number3;
     }
 
-    public void setStation3(String station3) {
-        this.station3 = station3;
+    public void setNumber3(String number3) {
+        this.number3 = number3;
     }
 
-    public String getStation4() {
-        return station4;
+    public String getNumber4() {
+        return number4;
     }
 
-    public void setStation4(String station4) {
-        this.station4 = station4;
+    public void setNumber4(String number4) {
+        this.number4 = number4;
     }
 
-    public String getStation5() {
-        return station5;
+    public String getNumber5() {
+        return number5;
     }
 
-    public void setStation5(String station5) {
-        this.station5 = station5;
+    public void setNumber5(String number5) {
+        this.number5 = number5;
     }
 
-    public String getStation6() {
-        return station6;
+    public String getNumber6() {
+        return number6;
     }
 
-    public void setStation6(String station6) {
-        this.station6 = station6;
+    public void setNumber6(String number6) {
+        this.number6 = number6;
     }
 
-    private String station1;
-    private String station2;
 
     @Override
     public String toString() {
         return "EmergencyNumbers:\n" +
-                "number1 = '" + station1 + "'\n" +
-                "number2 = '" + station2 + "'\n" +
-                "number3 = '" + station3 + "'\n" +
-                "number4 = '" + station4 + "'\n" +
-                "number5 = '" + station5 + "'\n" +
-                "number6 = '" + station6 + "'\n";
+                "number1 = '" + number1 + "'\n" +
+                "number2 = '" + number2 + "'\n" +
+                "number3 = '" + number3 + "'\n" +
+                "number4 = '" + number4 + "'\n" +
+                "number5 = '" + number5 + "'\n" +
+                "number6 = '" + number6 + "'\n";
     }
-
-    private String station3;
-    private String station4;
-    private String station5;
-    private String station6;
 
 }

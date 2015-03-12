@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by schoe_000 on 07.03.2015.
  */
 public class SeatPositionDTO implements Serializable {
-    static final long serialVersionUID = 3;
+    static final long serialVersionUID = 4;
 
     private int distanceSeatX;
     private int distanceSeatZ;
@@ -15,15 +15,6 @@ public class SeatPositionDTO implements Serializable {
 
     private int steeringWheelX;
     private int steeringWheelZ;
-
-    private int mirrorLX;
-    private int mirrorLZ;
-
-    private int mirrorMX;
-    private int mirrorMZ;
-
-    private int mirrorRX;
-    private int mirrorRZ;
 
     public int getDistanceSeatX() {
         return distanceSeatX;
@@ -73,53 +64,6 @@ public class SeatPositionDTO implements Serializable {
         this.steeringWheelZ = steeringWheelZ;
     }
 
-    public int getMirrorLX() {
-        return mirrorLX;
-    }
-
-    public void setMirrorLX(int mirrorLX) {
-        this.mirrorLX = mirrorLX;
-    }
-
-    public int getMirrorLZ() {
-        return mirrorLZ;
-    }
-
-    public void setMirrorLZ(int mirrorLZ) {
-        this.mirrorLZ = mirrorLZ;
-    }
-
-    public int getMirrorMX() {
-        return mirrorMX;
-    }
-
-    public void setMirrorMX(int mirrorMX) {
-        this.mirrorMX = mirrorMX;
-    }
-
-    public int getMirrorMZ() {
-        return mirrorMZ;
-    }
-
-    public void setMirrorMZ(int mirrorMZ) {
-        this.mirrorMZ = mirrorMZ;
-    }
-
-    public int getMirrorRX() {
-        return mirrorRX;
-    }
-
-    public void setMirrorRX(int mirrorRX) {
-        this.mirrorRX = mirrorRX;
-    }
-
-    public int getMirrorRZ() {
-        return mirrorRZ;
-    }
-
-    public void setMirrorRZ(int mirrorRZ) {
-        this.mirrorRZ = mirrorRZ;
-    }
 
     @Override
     public String toString() {
@@ -129,12 +73,6 @@ public class SeatPositionDTO implements Serializable {
                 "distanceAngle = " + distanceAngle + "\n" +
                 "distanceHeadWrest = " + distanceHeadWrest + "\n" +
                 "steeringWheelX = " + steeringWheelX + "\n" +
-                "steeringWheelZ = " + steeringWheelZ + "\n" +
-                "mirrorLX = " + mirrorLX + "\n" +
-                "mirrorLZ = " + mirrorLZ + "\n" +
-                "mirrorMX = " + mirrorMX + "\n" +
-                "mirrorMZ = " + mirrorMZ + "\n" +
-                "mirrorRX = " + mirrorRX + "\n" +
-                "mirrorRZ = " + mirrorRZ + "\n";
+                "steeringWheelZ = " + steeringWheelZ + "\n";
     }
 }

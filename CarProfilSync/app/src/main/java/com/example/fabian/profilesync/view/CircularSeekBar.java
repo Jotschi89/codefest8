@@ -25,7 +25,7 @@
  * reference material, and as a result, were extremely helpful.
  */
 
-package com.example.fabian.profilesync;
+package com.example.fabian.profilesync.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -41,6 +41,8 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.example.fabian.profilesync.R;
 
 public class CircularSeekBar extends View {
 

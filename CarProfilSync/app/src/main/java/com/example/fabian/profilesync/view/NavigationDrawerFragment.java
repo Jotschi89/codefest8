@@ -1,4 +1,4 @@
-package com.example.fabian.profilesync;
+package com.example.fabian.profilesync.view;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -19,6 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import com.example.fabian.profilesync.NavigationAdapter;
+import com.example.fabian.profilesync.R;
+
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -131,7 +134,7 @@ public class NavigationDrawerFragment extends Fragment {
      * Users of this fragment must call this method to set up the navigation drawer interactions.
      *
      * @param fragmentId   The android:id of this fragment in its activity's layout.
-     * @param drawerLayout The DrawerLayout containing this fragment's UI.
+     * @param drawerLayout The Drawer-Layout containing this fragment's UI.
      */
     public void setUp(int fragmentId, DrawerLayout drawerLayout) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);

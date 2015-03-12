@@ -114,7 +114,7 @@ public class CardReaderFragment extends Fragment implements LoyaltyCardReader.Ac
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                DataDTO dataDTO = Serializer.deSerialize(serializedObject);
+                DataDTO dataDTO = (DataDTO)Serializer.deSerialize(serializedObject);
                 if(dataDTO != null) {
                     outputText.setText(dataDTO.toString());
                     toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);

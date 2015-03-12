@@ -5,8 +5,10 @@ import android.nfc.cardemulation.HostApduService;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.fabian.profilesync.model.DataSaver;
+import com.example.fabian.profilesync.persistent.DataDtoPersistent;
 import com.example.fabian.profilesync.util.Serializer;
+import com.google.inject.Inject;
+import com.google.inject.Key;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,8 +16,13 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Map;
 
-public class CardService extends HostApduService {
+import roboguice.RoboGuice;
+import roboguice.util.RoboContext;
+
+
+public class CardService extends RoboHostApduService {
     private static final String TAG = "CardService";
     // AID for our loyalty card service.
     private static final String SAMPLE_LOYALTY_CARD_AID = "F222222222";
@@ -27,6 +34,14 @@ public class CardService extends HostApduService {
     // "UNKNOWN" status word sent in response to invalid APDU command (0x0000)
     private static final byte[] UNKNOWN_CMD_SW = HexStringToByteArray("0000");
     private static final byte[] SELECT_APDU = BuildSelectApdu(SAMPLE_LOYALTY_CARD_AID);
+
+    @Inject
+    DataDtoPersistent dataDtoPersistent;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 
     /**
      * Called if the connection to the NFC card is lost, in order to let the application know the
@@ -66,7 +81,7 @@ public class CardService extends HostApduService {
         if (Arrays.equals(SELECT_APDU, commandApdu)) {
             //String account = AccountStorage.GetAccount(this);
             //String account = DataSaver.getDataDto();
-            byte[] accountBytes = Serializer.serialize(DataSaver.getDataDto());
+            byte[] accountBytes = Serializer.serialize(dataDtoPersistent.readDto());
             Log.i(TAG, "Sending/: " + accountBytes);
             return ConcatArrays(accountBytes, SELECT_OK_SW);
         } else {
