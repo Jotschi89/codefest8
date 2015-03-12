@@ -23,29 +23,25 @@ public class SeatPositionSharedPreferencesImpl implements SeatPositionPersistent
 
     @Override
     public void saveSeatPosition(SeatPositionDTO data) {
-        try {
-            SharedPreferences.Editor editor = preferences.edit();
-            byte[] b = Serializer.serialize(data);
-            String decoded = new String(b, "ISO-8859-1");
-            editor.putString(TAG, decoded);
-            editor.commit();
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(TAG + "-DistanceAngle", data.getDistanceAngle());
+        editor.putInt(TAG + "-DistanceHeadWrest", data.getDistanceHeadWrest());
+        editor.putInt(TAG + "-DistanceSeatX", data.getDistanceSeatX());
+        editor.putInt(TAG + "-DistanceSeatZ", data.getDistanceSeatZ());
+        editor.putInt(TAG + "-SteeringWheelX", data.getSteeringWheelX());
+        editor.putInt(TAG + "-SteeringWheelZ", data.getSteeringWheelZ());
+        editor.commit();
     }
 
     @Override
     public SeatPositionDTO readSeatPosition() {
-        try {
-            String s = preferences.getString(TAG, "");
-            if(s.isEmpty()) {
-                return new SeatPositionDTO();
-            }
-            byte[] b = s.getBytes("ISO-8859-1");
-            return (SeatPositionDTO)Serializer.deSerialize(b);
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
-        return null;
+        SeatPositionDTO seatPositionDTO = new SeatPositionDTO();
+        seatPositionDTO.setDistanceAngle(preferences.getInt(TAG + "-DistanceAngle", 0));
+        seatPositionDTO.setDistanceHeadWrest(preferences.getInt(TAG + "-DistanceHeadWrest", 0));
+        seatPositionDTO.setDistanceSeatX(preferences.getInt(TAG + "-DistanceSeatX", 0));
+        seatPositionDTO.setDistanceSeatZ(preferences.getInt(TAG + "-DistanceSeatZ", 0));
+        seatPositionDTO.setSteeringWheelX(preferences.getInt(TAG + "-SteeringWheelX", 0));
+        seatPositionDTO.setSteeringWheelZ(preferences.getInt(TAG + "-SteeringWheelZ", 0));
+        return seatPositionDTO;
     }
 }

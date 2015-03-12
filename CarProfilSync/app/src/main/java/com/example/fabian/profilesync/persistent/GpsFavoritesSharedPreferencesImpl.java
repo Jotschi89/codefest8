@@ -23,29 +23,15 @@ public class GpsFavoritesSharedPreferencesImpl implements GpsFavoritesPersistent
 
     @Override
     public void saveGpsFavorites(GpsFavoritesDTO data) {
-        try {
-            SharedPreferences.Editor editor = preferences.edit();
-            byte[] b = Serializer.serialize(data);
-            String decoded = new String(b, "ISO-8859-1");
-            editor.putString(TAG, decoded);
-            editor.commit();
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
+        SharedPreferences.Editor editor = preferences.edit();
+        //todo
+        editor.commit();
     }
 
     @Override
     public GpsFavoritesDTO readGpsFavorites() {
-        try {
-            String s = preferences.getString(TAG, "");
-            if(s.isEmpty()) {
-                return new GpsFavoritesDTO();
-            }
-            byte[] b = s.getBytes("ISO-8859-1");
-            return (GpsFavoritesDTO)Serializer.deSerialize(b);
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
-        return null;
+        GpsFavoritesDTO gpsFavoritesDTO = new GpsFavoritesDTO();
+        // todo
+        return gpsFavoritesDTO;
     }
 }

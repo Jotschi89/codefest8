@@ -18,7 +18,7 @@ import java.util.Arrays;
 public class Serializer {
     private static final String TAG = "SERIALIZER";
 
-    public static Object deSerialize(byte [] data) {
+    public static Object deSerialize(byte[] data) {
         Object o = null;
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
         ObjectInput in = null;

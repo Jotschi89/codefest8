@@ -23,29 +23,25 @@ public class MirrorPositionSharedPreferencesImpl implements MirrorPositionPersis
 
     @Override
     public void saveMirrorPosition(MirrorPositionDTO data) {
-        try {
-            SharedPreferences.Editor editor = preferences.edit();
-            byte[] b = Serializer.serialize(data);
-            String decoded = new String(b, "ISO-8859-1");
-            editor.putString(TAG, decoded);
-            editor.commit();
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(TAG + "-MirrorLX", data.getMirrorLX());
+        editor.putInt(TAG + "-MirrorLZ", data.getMirrorLZ());
+        editor.putInt(TAG+"-MirrorMX", data.getMirrorMX());
+        editor.putInt(TAG+"-MirrorMZ", data.getMirrorMZ());
+        editor.putInt(TAG+"-MirrorRX", data.getMirrorRX());
+        editor.putInt(TAG+"-MirrorRZ", data.getMirrorRZ());
+        editor.commit();
     }
 
     @Override
     public MirrorPositionDTO readMirrorPosition() {
-        try {
-            String s = preferences.getString(TAG, "");
-            if(s.isEmpty()) {
-                return new MirrorPositionDTO();
-            }
-            byte[] b = s.getBytes("ISO-8859-1");
-            return (MirrorPositionDTO)Serializer.deSerialize(b);
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
-        return null;
+        MirrorPositionDTO mirrorPositionDTO = new MirrorPositionDTO();
+        mirrorPositionDTO.setMirrorLX(preferences.getInt(TAG + "-MirrorLX", 0));
+        mirrorPositionDTO.setMirrorLX(preferences.getInt(TAG + "-MirrorLZ", 0));
+        mirrorPositionDTO.setMirrorLX(preferences.getInt(TAG + "-MirrorMX", 0));
+        mirrorPositionDTO.setMirrorLX(preferences.getInt(TAG + "-MirrorMZ", 0));
+        mirrorPositionDTO.setMirrorLX(preferences.getInt(TAG + "-MirrorRX", 0));
+        mirrorPositionDTO.setMirrorLX(preferences.getInt(TAG + "-MirrorRZ", 0));
+        return mirrorPositionDTO;
     }
 }

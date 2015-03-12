@@ -23,29 +23,27 @@ public class MultimediaSharedPreferencesImpl implements MultimediaPersistent {
 
     @Override
     public void saveMultimedia(MultimediaDTO data) {
-        try {
-            SharedPreferences.Editor editor = preferences.edit();
-            byte[] b = Serializer.serialize(data);
-            String decoded = new String(b, "ISO-8859-1");
-            editor.putString(TAG, decoded);
-            editor.commit();
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(TAG+"-Station1", data.getStation1());
+        editor.putString(TAG+"-Station2", data.getStation2());
+        editor.putString(TAG+"-Station3", data.getStation3());
+        editor.putString(TAG+"-Station4", data.getStation4());
+        editor.putString(TAG+"-Station5", data.getStation5());
+        editor.putString(TAG+"-Station6", data.getStation6());
+        editor.putInt(TAG+"-Volume", data.getVolume());
+        editor.commit();
     }
 
     @Override
     public MultimediaDTO readMultimedia() {
-        try {
-            String s = preferences.getString(TAG, "");
-            if(s.isEmpty()) {
-                return new MultimediaDTO();
-            }
-            byte[] b = s.getBytes("ISO-8859-1");
-            return (MultimediaDTO)Serializer.deSerialize(b);
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
-        return null;
+        MultimediaDTO multimediaDTO = new MultimediaDTO();
+        multimediaDTO.setStation1(preferences.getString(TAG+"-Station1", "empty"));
+        multimediaDTO.setStation2(preferences.getString(TAG+"-Station2", "empty"));
+        multimediaDTO.setStation3(preferences.getString(TAG+"-Station3", "empty"));
+        multimediaDTO.setStation4(preferences.getString(TAG+"-Station4", "empty"));
+        multimediaDTO.setStation5(preferences.getString(TAG+"-Station5", "empty"));
+        multimediaDTO.setStation6(preferences.getString(TAG+"-Station6", "empty"));
+        multimediaDTO.setVolume(preferences.getInt(TAG+"-Volume", 50));
+        return multimediaDTO;
     }
 }

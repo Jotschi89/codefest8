@@ -24,29 +24,25 @@ public class EmergencyNumbersSharedPreferencesImpl implements EmergencyNumbersPe
 
     @Override
     public void saveEmergencyNumbers(EmergencyNumbersDTO data) {
-        try {
-            SharedPreferences.Editor editor = preferences.edit();
-            byte[] b = Serializer.serialize(data);
-            String decoded = new String(b, "ISO-8859-1");
-            editor.putString(TAG, decoded);
-            editor.commit();
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(TAG+"-Number1", data.getNumber1());
+        editor.putString(TAG+"-Number2", data.getNumber2());
+        editor.putString(TAG+"-Number3", data.getNumber3());
+        editor.putString(TAG+"-Number4", data.getNumber4());
+        editor.putString(TAG+"-Number5", data.getNumber5());
+        editor.putString(TAG+"-Number6", data.getNumber6());
+        editor.commit();
     }
 
     @Override
     public EmergencyNumbersDTO readEmergencyNumbers() {
-        try {
-            String s = preferences.getString(TAG, "");
-            if(s.isEmpty()) {
-                return new EmergencyNumbersDTO();
-            }
-            byte[] b = s.getBytes("ISO-8859-1");
-            return (EmergencyNumbersDTO)Serializer.deSerialize(b);
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
-        return null;
+        EmergencyNumbersDTO emergencyNumbersDTO = new EmergencyNumbersDTO();
+        emergencyNumbersDTO.setNumber1(preferences.getString(TAG+"-Number1", "empty"));
+        emergencyNumbersDTO.setNumber2(preferences.getString(TAG+"-Number2", "empty"));
+        emergencyNumbersDTO.setNumber3(preferences.getString(TAG+"-Number3", "empty"));
+        emergencyNumbersDTO.setNumber4(preferences.getString(TAG+"-Number4", "empty"));
+        emergencyNumbersDTO.setNumber5(preferences.getString(TAG+"-Number5", "empty"));
+        emergencyNumbersDTO.setNumber6(preferences.getString(TAG+"-Number6", "empty"));
+        return emergencyNumbersDTO;
     }
 }
